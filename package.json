@@ -1,8 +1,8 @@
 {
   "main": "index.js",
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "android:qa": "react-native run-android",
+    "ios:qa": "react-native run-ios",
     "web": "expo start --web",
     "start": "react-native start"
   },
@@ -20,6 +20,7 @@
     "react-native": "~0.63.4",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-reanimated": "~2.2.0",
+    "react-native-responsive-fontsize": "^0.5.1",
     "react-native-screens": "~3.4.0",
     "react-native-unimodules": "0.14.10",
     "react-native-web": "~0.13.12"
