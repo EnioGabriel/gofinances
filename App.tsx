@@ -1,5 +1,5 @@
 import React from "react";
-// Contexto para disponilizar o tema
+// Contexto para disponibilizar o tema
 import { ThemeProvider } from "styled-components/native";
 import theme from "./src/global/styles/theme";
 
