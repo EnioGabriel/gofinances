@@ -1,5 +1,5 @@
 import React from "react";
-import { Highlightcard } from "../../components/HighlightCard";
+import { HighlightCard } from "../../components/HighlightCard";
 import {
   Container,
   Header,
@@ -9,6 +9,7 @@ import {
   Greetings,
   Icon,
   UserName,
+  HighlightCards,
 } from "./styles";
 
 export function Dashboard() {
@@ -30,7 +31,15 @@ export function Dashboard() {
         {/* Chamando VectorIcon estilizado e passando o nome como props */}
         <Icon name="power" />
       </Header>
-      <Highlightcard />
+      <HighlightCards
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingLeft: 24 }}
+      >
+        <HighlightCard />
+        <HighlightCard />
+        <HighlightCard />
+      </HighlightCards>
     </Container>
   );
 }

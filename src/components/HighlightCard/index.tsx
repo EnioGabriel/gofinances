@@ -1,16 +1,16 @@
 import React from "react";
-import { Icon } from "../../screens/Dashboard/styles";
 
 import {
   Container,
   Header,
   Title,
   Footer,
+  Icon,
   Amount,
   LastTransaction,
 } from "./styles";
 
-export function Highlightcard() {
+export function HighlightCard() {
   return (
     <Container>
       <Header>
