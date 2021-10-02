@@ -31,7 +31,7 @@ export const UserImage = styled.Image`
   height: ${RFValue(48)}px;
   width: ${RFValue(48)}px;
   border-radius: 10px;
-  margin-left: 13px;
+  margin-left: 24px;
 `;
 
 export const UserGreetings = styled.View`
@@ -52,11 +52,14 @@ export const UserName = styled.Text`
 
 // Estilizando uma biblioteca (Feather Vector Icon)
 export const Icon = styled(Feather)`
-  padding: 13px;
+  padding: 27px;
   color: ${({ theme }) => theme.colors.secondary};
   font-size: ${RFValue(24)}px;
 `;
 
-export const HighlightCards = styled.ScrollView`
-  
-`;
+// Acessa as propriedades do elemento com 'attrs'
+export const HighlightCards = styled.ScrollView.attrs({
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+  contentContainerStyle: { paddingHorizontal: 24 },
+})``;

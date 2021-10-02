@@ -31,11 +31,7 @@ export function Dashboard() {
         {/* Chamando VectorIcon estilizado e passando o nome como props */}
         <Icon name="power" />
       </Header>
-      <HighlightCards
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingLeft: 24 }}
-      >
+      <HighlightCards>
         <HighlightCard />
         <HighlightCard />
         <HighlightCard />
