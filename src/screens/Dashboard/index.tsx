@@ -31,14 +31,27 @@ export function Dashboard() {
         {/* Chamando VectorIcon estilizado e passando o nome como props */}
         <Icon name="power" />
       </Header>
-      <HighlightCards
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingLeft: 24 }}
-      >
-        <HighlightCard />
-        <HighlightCard />
-        <HighlightCard />
+      <HighlightCards>
+        <HighlightCard
+          type="up"
+          title="Entradas"
+          amount="R$ 17.400,00"
+          lastTransaction="Última entrada dia 22 de outubro"
+        />
+
+        <HighlightCard
+          type="down"
+          title="Saídas"
+          amount="R$ 1.259,00"
+          lastTransaction="Última saída dia 11 de outubro"
+        />
+
+        <HighlightCard
+          type="total"
+          title="Total"
+          amount="R$ 16.141,00"
+          lastTransaction="01 à 16 de abril"
+        />
       </HighlightCards>
     </Container>
   );
