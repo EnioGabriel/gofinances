@@ -1,16 +1,25 @@
-import React from 'react'
 import { StatusBar } from 'react-native';
+import React, {useState} from 'react'
 import { Button } from '../../components/Forms/Button'
 import { Input } from '../../components/Forms/Input'
+import { TransactionTypeButton } from '../../components/Forms/Input/TransactionTypeButton'
+
 import { 
   Container,
   Header,
   Title,
   Form,
-  Fields
+  Fields,
+  TransactionsTypes
 } from './styles'
 
 export function Register() {
+  const [transactionType, setTransactionType] = useState('');
+
+  function handleTransactionTypeSelect(type: 'up' | 'down'){
+    setTransactionType(type);
+  }
+
   return(
     <Container>
       <StatusBar  backgroundColor={'#4a27d6'} />
@@ -26,6 +35,24 @@ export function Register() {
         <Input 
           placeholder="Preço"
         />
+
+        <TransactionsTypes>
+          <TransactionTypeButton 
+            type = "up"
+            title = "Income"
+            onPress ={() => handleTransactionTypeSelect("up")}
+            // Retorna um booleano para saber se está ou não ativo
+            isActive = {transactionType === 'up' }
+          />
+          <TransactionTypeButton 
+            type = "down"
+            title = "Outcome"
+            onPress ={() => handleTransactionTypeSelect('down')}
+            // Retorna um booleano para saber se está ou não ativo
+            isActive = {transactionType === 'down' }
+          />
+        </TransactionsTypes>
+
       </Fields>
       
       <Button title="Enviar"/>
