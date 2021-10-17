@@ -1,4 +1,5 @@
 import React from 'react'
+import { StatusBar } from 'react-native';
 import { Button } from '../../components/Forms/Button'
 import { Input } from '../../components/Forms/Input'
 import { 
@@ -12,6 +13,7 @@ import {
 export function Register() {
   return(
     <Container>
+      <StatusBar  backgroundColor={'#4a27d6'} />
       <Header>
         <Title>Cadastro</Title>
       </Header>
