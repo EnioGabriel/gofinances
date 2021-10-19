@@ -1,9 +1,10 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Button } from '../../components/Forms/Button'
+import { CategorySelect } from '../../components/Forms/CategorySelect'
 import { Input } from '../../components/Forms/Input'
 import { TransactionTypeButton } from '../../components/Forms/Input/TransactionTypeButton'
 
-import { 
+import {
   Container,
   Header,
   Title,
@@ -15,46 +16,47 @@ import {
 export function Register() {
   const [transactionType, setTransactionType] = useState('');
 
-  function handleTransectionTypeSelect(type: 'up' | 'down'){
+  function handleTransectionTypeSelect(type: 'up' | 'down') {
     setTransactionType(type);
   }
 
-  return(
+  return (
     <Container>
       <Header>
         <Title>Cadastro</Title>
       </Header>
 
-    <Form>
-      <Fields>
-        <Input 
-          placeholder="Nome"
-        />
-        <Input 
-          placeholder="Preço"
-        />
-
-        <TransactionsTypes>
-          <TransactionTypeButton 
-            type = "up"
-            title = "Income"
-            onPress ={() => handleTransectionTypeSelect("up")}
-            // Retorna um booleano para saber se está ou não ativo
-            isActive = {transactionType === 'up' }
+      <Form>
+        <Fields>
+          <Input
+            placeholder="Nome"
           />
-          <TransactionTypeButton 
-            type = "down"
-            title = "Outcome"
-            onPress ={() => handleTransectionTypeSelect('down')}
-            // Retorna um booleano para saber se está ou não ativo
-            isActive = {transactionType === 'down' }
+          <Input
+            placeholder="Preço"
           />
-        </TransactionsTypes>
 
-      </Fields>
-      
-      <Button title="Enviar"/>
-    </Form>
+          <TransactionsTypes>
+            <TransactionTypeButton
+              type="up"
+              title="Income"
+              onPress={() => handleTransectionTypeSelect("up")}
+              // Retorna um booleano para saber se está ou não ativo
+              isActive={transactionType === 'up'}
+            />
+            <TransactionTypeButton
+              type="down"
+              title="Outcome"
+              onPress={() => handleTransectionTypeSelect('down')}
+              // Retorna um booleano para saber se está ou não ativo
+              isActive={transactionType === 'down'}
+            />
+          </TransactionsTypes>
+
+          <CategorySelect title="Categoria" />
+        </Fields>
+
+        <Button title="Enviar" />
+      </Form>
     </Container>
   )
 }
