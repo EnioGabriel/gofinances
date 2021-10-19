@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { StatusBar } from 'react-native';
 import { Button } from '../../components/Forms/Button'
 import { CategorySelect } from '../../components/Forms/CategorySelect'
 import { Input } from '../../components/Forms/Input'
@@ -16,12 +17,13 @@ import {
 export function Register() {
   const [transactionType, setTransactionType] = useState('');
 
-  function handleTransectionTypeSelect(type: 'up' | 'down') {
+  function handleTransactionTypeSelect(type: 'up' | 'down') {
     setTransactionType(type);
   }
 
   return (
     <Container>
+      <StatusBar backgroundColor={'#4a27d6'} />
       <Header>
         <Title>Cadastro</Title>
       </Header>
@@ -39,14 +41,14 @@ export function Register() {
             <TransactionTypeButton
               type="up"
               title="Income"
-              onPress={() => handleTransectionTypeSelect("up")}
+              onPress={() => handleTransactionTypeSelect("up")}
               // Retorna um booleano para saber se está ou não ativo
               isActive={transactionType === 'up'}
             />
             <TransactionTypeButton
               type="down"
               title="Outcome"
-              onPress={() => handleTransectionTypeSelect('down')}
+              onPress={() => handleTransactionTypeSelect('down')}
               // Retorna um booleano para saber se está ou não ativo
               isActive={transactionType === 'down'}
             />
