@@ -4,16 +4,18 @@ import { TextInputProps } from 'react-native'
 
 import { Input } from '../Forms/Input'
 
-import { Conatiner } from './styles'
+import { Conatiner, Error } from './styles'
 
 interface Props extends TextInputProps {
    control: Control;
    name: string;
+   error: string;
 }
 
 export function InputForm({
    control,
    name,
+   error,
    ...rest
 }: Props) {
    return (
@@ -29,6 +31,8 @@ export function InputForm({
             )}
             name={name}
          />
+         {/* Exibe apenas se tiver erro */}
+         {error && <Error>{error}</Error>}
       </Conatiner>
    );
 }
