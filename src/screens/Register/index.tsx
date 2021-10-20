@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Alert, Keyboard, Modal, TouchableWithoutFeedback } from 'react-native';
+import uuid from 'react-native-uuid';
 
 import * as Yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup"
 
 import { useForm } from 'react-hook-form';
+import { useNavigation } from '@react-navigation/native';
 
 import { InputForm } from '../../components/InputForm';
 import { StatusBar } from 'react-native';
@@ -44,10 +46,13 @@ export function Register() {
 
   const dataKey = "@gofinances:transactions"
 
+  const navigation = useNavigation();
+
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm({
     resolver: yupResolver(schema)
   });
@@ -64,6 +69,15 @@ export function Register() {
     setCategoryModalOpen(false);
   }
 
+  function clearFields() {
+    reset(); // Reseta dados do formulário (nome, preço)
+    setTransactionType('');
+    setCategory({
+      key: 'category',
+      name: 'Categoria'
+    });
+  }
+
   async function handleRegister(form: FormData) {
     if (!transactionType)
       return Alert.alert('Selecione o tipo da transação');
@@ -72,10 +86,12 @@ export function Register() {
       return Alert.alert('Selecione o tipo de categoria')
 
     const newTransaction = {
+      id: String(uuid.v4()),
       name: form.name,
       amount: form.amount,
       transactionType,
-      category: category.key
+      category: category.key,
+      date: new Date()
     }
 
     try {
@@ -89,29 +105,33 @@ export function Register() {
       ]
 
       await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
+
+      clearFields();
+
+      navigation.navigate('Listagem')
+
     } catch (error) {
       console.log(error);
       Alert.alert("Não foi possivel salvar")
-
     }
   }
 
-  useEffect(() => {
-    // CRIANDO UMA FUNÇAO APENAS PARA USAR O ASYNC/AWAIT, VISTO QUE O USEEFFECT NAO COMPORTA ESSE COMANDO
-    async function loadData() {
-      const data = await AsyncStorage.getItem(dataKey);
-      // ! => FORCA O TS A ENTENDER QUE O VALOR NUNCA VAI SER NULO (TO AVOID ERROR SINTAX)
-      console.log(data!);
-    }
+  // useEffect(() => {
+  //   // CRIANDO UMA FUNÇAO APENAS PARA USAR O ASYNC/AWAIT, VISTO QUE O USEEFFECT NAO COMPORTA ESSE COMANDO
+  //   async function loadData() {
+  //     const data = await AsyncStorage.getItem(dataKey);
+  //     // ! => FORCA O TS A ENTENDER QUE O VALOR NUNCA VAI SER NULO (TO AVOID ERROR SINTAX)
+  //     console.log(data!);
+  //   }
 
-    loadData();
+  //   loadData();
 
-    // REMOVENDO ITEM DO AsyncStorage
-    // async function deleteStorage() {
-    //   await AsyncStorage.removeItem(dataKey)
-    // }
-    // deleteStorage();
-  }, [])
+  //   // REMOVENDO ITEM DO AsyncStorage
+  //   // async function deleteStorage() {
+  //   //   await AsyncStorage.removeItem(dataKey)
+  //   // }
+  //   // deleteStorage();
+  // }, [])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
