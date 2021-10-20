@@ -3,6 +3,7 @@ import { FlatList } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import { getBottomSpace, getStatusBarHeight } from "react-native-iphone-x-helper";
+import { BorderlessButton } from 'react-native-gesture-handler'
 
 import { DataListProps } from ".";
 
@@ -58,6 +59,10 @@ export const UserName = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
 `;
 
+export const LogoutButton = styled(BorderlessButton)`
+
+`
+
 // Estilizando uma biblioteca (Feather Vector Icon)
 export const Icon = styled(Feather)`
   margin-top: ${getStatusBarHeight() + RFValue(8)}px;
@@ -95,11 +100,10 @@ export const Title = styled.Text`
 
 export const TransactionList = styled(
   FlatList as new () => FlatList<DataListProps>
-  ).attrs({
+).attrs({
   showsVerticalScrollIndicator: false,
-  contentContainerStyle:{
+  contentContainerStyle: {
     paddingBottom: getBottomSpace()
   }
 })`
 `;
-

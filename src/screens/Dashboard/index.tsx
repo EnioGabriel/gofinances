@@ -1,4 +1,5 @@
 import React from "react";
+import { StatusBar } from "react-native";
 
 import { HighlightCard } from "../../components/HighlightCard";
 import { TransactionCard, TransactionCardProps } from "../../components/TransactionCard";
@@ -15,7 +16,8 @@ import {
   HighlightCards,
   Transactions,
   Title,
-  TransactionList
+  TransactionList,
+  LogoutButton
 } from "./styles";
 
 export interface DataListProps extends TransactionCardProps {
@@ -26,41 +28,42 @@ export function Dashboard() {
   const data: DataListProps[] = [
     {
       id: "1",
-      type:"positive",
-      title:"Desenvolvimento de site",
-      amount:"R$ 12.000,00",
-      category:{
+      type: "positive",
+      title: "Desenvolvimento de site",
+      amount: "R$ 12.000,00",
+      category: {
         name: 'Vendas',
         icon: 'dollar-sign'
       },
-      date:"12/08/2021"
+      date: "12/08/2021"
     },
     {
       id: '2',
-      type:"negative",
-      title:"Desenvolvimento de site",
-      amount:"R$ 12.000,00",
-      category:{
+      type: "negative",
+      title: "Desenvolvimento de site",
+      amount: "R$ 12.000,00",
+      category: {
         name: 'Vendas',
         icon: 'coffee'
       },
-      date:"12/08/2021"
+      date: "12/08/2021"
     },
     {
       id: '3',
-      type:"negative",
-      title:"Desenvolvimento de site",
-      amount:"R$ 12.000,00",
-      category:{
+      type: "negative",
+      title: "Desenvolvimento de site",
+      amount: "R$ 12.000,00",
+      category: {
         name: 'Vendas',
         icon: 'shopping-bag'
       },
-      date:"12/08/2021"
+      date: "12/08/2021"
     },
-]
+  ]
 
   return (
     <Container>
+      <StatusBar translucent={true} backgroundColor={'#5536d3'} />
       <Header>
         <UserWrapper>
           <UserImage
@@ -74,10 +77,11 @@ export function Dashboard() {
           </UserGreetings>
         </UserWrapper>
 
-        {/* Chamando VectorIcon estilizado e passando o nome como props */}
-        <Icon name="power" />        
+        <LogoutButton borderless={false} onPress={() => { }}>
+          <Icon name="power" />
+        </LogoutButton>
       </Header>
-      
+
       <HighlightCards>
         <HighlightCard
           type="up"
@@ -104,10 +108,10 @@ export function Dashboard() {
       <Transactions>
         <Title>Listagem</Title>
 
-        <TransactionList 
+        <TransactionList
           data={data}
           keyExtractor={item => item.id}
-          renderItem={({item}) =>  <TransactionCard data={item} />}
+          renderItem={({ item }) => <TransactionCard data={item} />}
         />
         {/* <TransactionCard data=data[0] /> */}
       </Transactions>
