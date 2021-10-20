@@ -17,6 +17,9 @@ export function AppRoutes() {
          screenOptions={{
             tabBarActiveTintColor: theme.colors.secondary,
             tabBarInactiveTintColor: theme.colors.text,
+            headerTransparent: true,
+            // Desabilita o header
+            headerShown: false,
             tabBarLabelPosition: 'beside-icon',
             tabBarStyle: {
                paddingVertical: Platform.OS === 'ios' ? 20 : 0,
@@ -36,10 +39,6 @@ export function AppRoutes() {
                      color={color}
                   />
                )),
-               // Desativa o background
-               headerTransparent: true,
-               // Desativa o texto
-               headerStatusBarHeight: 0
             }}
          />
 
@@ -55,10 +54,6 @@ export function AppRoutes() {
                      color={color}
                   />
                )),
-               // Desativa o background
-               headerTransparent: true,
-               // Desativa o texto
-               headerStatusBarHeight: 0
             }}
          />
 
@@ -74,10 +69,6 @@ export function AppRoutes() {
                      color={color}
                   />
                )),
-               // Desativa o background
-               headerTransparent: true,
-               // Desativa o texto
-               headerStatusBarHeight: 0
             }}
          />
       </Navigator>
