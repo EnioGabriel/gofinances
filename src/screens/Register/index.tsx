@@ -71,7 +71,7 @@ export function Register() {
     if (category.key === "category")
       return Alert.alert('Selecione o tipo de categoria')
 
-    const data = {
+    const newTransaction = {
       name: form.name,
       amount: form.amount,
       transactionType,
@@ -79,7 +79,16 @@ export function Register() {
     }
 
     try {
-      await AsyncStorage.setItem(dataKey, JSON.stringify(data));
+      const dataInStorage = await AsyncStorage.getItem(dataKey);
+      const currentData = dataInStorage ? JSON.parse(dataInStorage) : [];
+
+      // Pega as informações que já foram criadas (AsyncStorage) e une com a nova
+      const dataFormatted = [
+        ...currentData,
+        newTransaction
+      ]
+
+      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
     } catch (error) {
       console.log(error);
       Alert.alert("Não foi possivel salvar")
@@ -92,10 +101,16 @@ export function Register() {
     async function loadData() {
       const data = await AsyncStorage.getItem(dataKey);
       // ! => FORCA O TS A ENTENDER QUE O VALOR NUNCA VAI SER NULO (TO AVOID ERROR SINTAX)
-      console.log(data);
+      console.log(data!);
     }
 
     loadData();
+
+    // REMOVENDO ITEM DO AsyncStorage
+    // async function deleteStorage() {
+    //   await AsyncStorage.removeItem(dataKey)
+    // }
+    // deleteStorage();
   }, [])
 
   return (
