@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Alert, Keyboard, Modal, TouchableWithoutFeedback } from 'react-native';
 import uuid from 'react-native-uuid';
 
@@ -44,8 +44,6 @@ export function Register() {
     name: 'Categoria',
   });
 
-  const dataKey = "@gofinances:transactions"
-
   const navigation = useNavigation();
 
   const {
@@ -90,11 +88,14 @@ export function Register() {
       name: form.name,
       amount: form.amount,
       transactionType,
+      type: transactionType === 'up' ? 'positive' : 'negative',
       category: category.key,
       date: new Date()
     }
 
     try {
+      const dataKey = "@gofinances:transactions"
+
       const dataInStorage = await AsyncStorage.getItem(dataKey);
       const currentData = dataInStorage ? JSON.parse(dataInStorage) : [];
 
@@ -110,8 +111,7 @@ export function Register() {
 
       navigation.navigate('Listagem')
 
-    } catch (error) {
-      console.log(error);
+    } catch {
       Alert.alert("Não foi possivel salvar")
     }
   }

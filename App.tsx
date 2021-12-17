@@ -1,4 +1,6 @@
 import 'react-native-gesture-handler';
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR'
 
 import React from "react";
 import AppLoading from "expo-app-loading";
@@ -9,31 +11,31 @@ import theme from "./src/global/styles/theme";
 import { NavigationContainer } from '@react-navigation/native'
 
 import {
-   useFonts,
-   Poppins_400Regular,
-   Poppins_500Medium,
-   Poppins_700Bold,
+  useFonts,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 
 import { AppRoutes } from './src/routes/app.routes';
 
 export default function App() {
-   const [fontsLoaded] = useFonts({
-      Poppins_400Regular,
-      Poppins_500Medium,
-      Poppins_700Bold,
-   });
+  const [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_700Bold,
+  });
 
-   // Aguarda carregar as fontes (Segura o inicio do App)
-   if (!fontsLoaded) {
-      return <AppLoading />;
-   }
+  // Aguarda carregar as fontes (Segura o inicio do App)
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
 
-   return (
-      <ThemeProvider theme={theme}>
-         <NavigationContainer>
-            <AppRoutes />
-         </NavigationContainer>
-      </ThemeProvider>
-   );
+  return (
+    <ThemeProvider theme={theme}>
+      <NavigationContainer>
+        <AppRoutes />
+      </NavigationContainer>
+    </ThemeProvider>
+  );
 }
