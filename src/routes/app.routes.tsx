@@ -6,6 +6,7 @@ import { useTheme } from 'styled-components';
 
 import { Dashboard } from '../screens/Dashboard';
 import { Platform } from 'react-native';
+import { Resume } from '../screens/Resume';
 
 const { Navigator, Screen } = createBottomTabNavigator()
 
@@ -59,7 +60,7 @@ export function AppRoutes() {
 
          <Screen
             name="Resumo"
-            component={Register}
+            component={Resume}
             // configurações do Header que é criado por default
             options={{
                tabBarIcon: (({ size, color }) => (

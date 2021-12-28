@@ -49,7 +49,7 @@ export function Dashboard() {
   function getLastTransactionDate(collection: DataListProps[], type: 'positive' | 'negative') {
     const getDataInTimestamp = collection
       // Filtrando apenas os positivos
-      .filter((transaction) => transaction.type === 'positive')
+      .filter((transaction) => transaction.type === type)
       // retornado dos positivos, apenas a data e formatando com timestamp
       .map((transaction) => new Date(transaction.date).getTime());
 
