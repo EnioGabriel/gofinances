@@ -13,6 +13,8 @@ import {
 } from './styles'
 
 import { categories } from "../../utils/categories";
+import { RFValue } from "react-native-responsive-fontsize";
+import { useTheme } from "styled-components";
 
 interface TransactionData {
     type: 'positive' | 'negative';
@@ -36,6 +38,8 @@ export function Resume() {
 
     const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>([]);
 
+    const theme = useTheme();
+
     async function loadData() {
         const dataKey = '@gofinances:transactions';
         const response = await AsyncStorage.getItem(dataKey);
@@ -50,7 +54,7 @@ export function Resume() {
 
         const expensiveTotal = expensives.reduce((accumulator: number, expensive: TransactionData) => {
             return accumulator + (expensive.amount);
-        }, 0)
+        }, 0);
 
         categories.forEach(category => {
             let categorySum = 0;
@@ -99,7 +103,16 @@ export function Resume() {
                 <ChartContainer>
                     <VictoryPie
                         data={totalByCategories}
-                        x="name"
+                        colorScale={totalByCategories.map(category => category.color)} //Adicionando as respectivas cores
+                        style={{
+                            labels: {
+                                fontSize: RFValue(18),
+                                fontWeight: 'bold',
+                                fill: theme.colors.shape //fill: Define a cor do label no gráfico
+                            }
+                        }}
+                        labelRadius={50}
+                        x="percent"
                         y="total"
                     />
                 </ChartContainer>
