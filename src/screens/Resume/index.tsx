@@ -1,9 +1,16 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
-import { categories } from "../../utils/categories";
-import { HistoryCard } from "../HistoryCard";
-import { Container, Header, Title, Content } from './styles'
 
+import { HistoryCard } from "../HistoryCard";
+
+import {
+    Container,
+    Header,
+    Title,
+    Content
+} from './styles'
+
+import { categories } from "../../utils/categories";
 interface TransactionData {
     type: 'positive' | 'negative';
     name: string;
@@ -17,6 +24,8 @@ interface CategoryData {
     name: string;
     total: string;
     color: string;
+    percentFormatted: string;
+    percent: number;
 }
 
 export function Resume() {
@@ -34,6 +43,11 @@ export function Resume() {
         const expensives = responseFormatted.filter((expensive: TransactionData) => {
             return expensive.type === 'negative'
         })
+
+        const expensiveTotal = expensives.reduce((accumulator: number, expensive: TransactionData) => {
+            return accumulator + (expensive.amount);
+        }, 0)
+
         categories.forEach(category => {
             let categorySum = 0;
 
@@ -47,13 +61,18 @@ export function Resume() {
                 const total = categorySum.toLocaleString('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
-                })
+                });
+
+                const percent = (categorySum / expensiveTotal * 100);
+                const percentFormatted = `${percent.toFixed(0)}%`;
 
                 totalByCategory.push({
                     key: category.key,
                     name: category.name,
                     color: category.color,
                     total,
+                    percent,
+                    percentFormatted,
                 })
             }
         })
@@ -64,7 +83,6 @@ export function Resume() {
     useEffect(() => {
         loadData();
     }, [])
-
 
     return (
         <Container>
@@ -83,7 +101,6 @@ export function Resume() {
                         />
                     ))
                 }
-
             </Content>
         </Container>
     )
