@@ -1,6 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { VictoryPie } from "victory-native";
+import { RFValue } from "react-native-responsive-fontsize";
+import { addMonths, subMonths, format } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { useTheme } from "styled-components";
@@ -20,7 +23,7 @@ import {
 } from './styles'
 
 import { categories } from "../../utils/categories";
-import { RFValue } from "react-native-responsive-fontsize";
+import { useFocusEffect } from "@react-navigation/native";
 
 interface TransactionData {
     type: 'positive' | 'negative';
@@ -42,9 +45,20 @@ interface CategoryData {
 
 export function Resume() {
 
+    const [selectedDate, setSelectedDate] = useState(new Date());
     const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>([]);
 
     const theme = useTheme();
+
+    function handleDateChange(action: 'next' | 'prev') {
+        if (action === 'next') {
+            const nextMonth = addMonths(selectedDate, 1)
+            setSelectedDate(nextMonth);
+        } else {
+            const previousMonth = subMonths(selectedDate, 1)
+            setSelectedDate(previousMonth);
+        }
+    }
 
     async function loadData() {
         const dataKey = '@gofinances:transactions';
@@ -55,7 +69,9 @@ export function Resume() {
 
         //Filtrando apenas as contas de saída
         const expensives = responseFormatted.filter((expensive: TransactionData) => {
-            return expensive.type === 'negative'
+            return expensive.type === 'negative' &&
+                new Date(expensive.date).getMonth() === selectedDate.getMonth() &&
+                new Date(expensive.date).getFullYear() === selectedDate.getFullYear()
         })
 
         const expensiveTotal = expensives.reduce((accumulator: number, expensive: TransactionData) => {
@@ -95,9 +111,14 @@ export function Resume() {
         setTotalByCategories(totalByCategory)
     }
 
+    useFocusEffect(useCallback(() => {
+        loadData();
+    }, []));
+
     useEffect(() => {
         loadData();
-    }, [])
+    }, [selectedDate]);
+
 
     return (
         <Container>
@@ -114,13 +135,13 @@ export function Resume() {
             >
 
                 <MonthSelect>
-                    <MonthSelectButton>
+                    <MonthSelectButton onPress={() => handleDateChange('prev')}>
                         <MonthSelectIcon name="chevron-left" />
                     </MonthSelectButton>
 
-                    <Month>Maio</Month>
+                    <Month>{format(selectedDate, "MMMM, yyyy", { locale: ptBR })}</Month>
 
-                    <MonthSelectButton>
+                    <MonthSelectButton onPress={() => handleDateChange('next')}>
                         <MonthSelectIcon name="chevron-right" />
                     </MonthSelectButton>
                 </MonthSelect>
@@ -137,7 +158,7 @@ export function Resume() {
                             }
                         }}
                         labelRadius={50}
-                        x="percent"
+                        x="percentFormatted"
                         y="total"
                     />
                 </ChartContainer>
