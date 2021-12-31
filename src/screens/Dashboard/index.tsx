@@ -181,7 +181,7 @@ export function Dashboard() {
               type="down"
               title="Saídas"
               amount={highlightData.expensives.amount}
-              lastTransaction={`Última saída dia ${highlightData.entries.lastTransaction}`}
+              lastTransaction={`Última saída dia ${highlightData.expensives.lastTransaction}`}
             />
 
             <HighlightCard
