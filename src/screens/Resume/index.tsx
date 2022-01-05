@@ -1,9 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { VictoryPie } from "victory-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { addMonths, subMonths, format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import { ActivityIndicator } from "react-native";
 
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { useTheme } from "styled-components";
@@ -25,7 +26,6 @@ import {
 
 import { categories } from "../../utils/categories";
 import { useFocusEffect } from "@react-navigation/native";
-import { ActivityIndicator } from "react-native";
 
 interface TransactionData {
     type: 'positive' | 'negative';
