@@ -168,27 +168,26 @@ export function Dashboard() {
               <Icon name="power" />
             </LogoutButton>
           </Header>
-
           <HighlightCards>
             <HighlightCard
               type="up"
               title="Entradas"
               amount={highlightData.entries.amount}
-              lastTransaction={`Última entrada dia ${highlightData.entries.lastTransaction}`}
+              lastTransaction={highlightData.entries.amount !== 'R$ 0,00' ? `Última entrada dia ${highlightData.entries.lastTransaction}` : "Nenhuma entrada realizada"}
             />
 
             <HighlightCard
               type="down"
               title="Saídas"
               amount={highlightData.expensives.amount}
-              lastTransaction={`Última saída dia ${highlightData.expensives.lastTransaction}`}
+              lastTransaction={highlightData.expensives.amount !== 'R$ 0,00' ? `Última saída dia ${highlightData.expensives.lastTransaction}` : "Nenhuma saída realizada"}
             />
 
             <HighlightCard
               type="total"
               title="Total"
               amount={highlightData.total.amount}
-              lastTransaction={highlightData.total.lastTransaction}
+              lastTransaction={highlightData.total.amount !== 'R$ 0,00' ? highlightData.total.lastTransaction : "Nenhuma operação realizada"}
             />
           </HighlightCards>
 
